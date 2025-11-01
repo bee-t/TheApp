@@ -1,0 +1,12 @@
+# Vite build output
+dist/
+
+# Environment files
+.env
+.env.*.local
+
+# Cache
+.vite/
+
+# Build outputs
+build/

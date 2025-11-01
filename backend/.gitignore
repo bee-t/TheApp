@@ -1,0 +1,12 @@
+# TypeScript compiled output
+dist/
+
+# Environment files (except example)
+.env
+!.env.example
+
+# Log files
+*.log
+
+# Database files (if using SQLite)
+*.db
