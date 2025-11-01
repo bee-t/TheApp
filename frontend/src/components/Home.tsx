@@ -16,25 +16,25 @@ const Home: React.FC = () => {
 
   return (
     <Container maxWidth="lg" center padding="medium">
-      <Box shadow="none" fullWidth>
-        {/* Header Section with Theme Toggle */}
-        <Flex 
-          direction="row" 
-          justify="between" 
-          align="center" 
-          margin="large"
-          fullWidth
-        >
-          <Text variant="h1" size="2xl" weight="bold" margin="none">
-            Welcome to Our App!
-          </Text>
-          <Flex gap="small" align="center">
-            <ThemeToggle />
-            <Button variant="danger" onClick={logout}>
-              Logout
-            </Button>
-          </Flex>
-        </Flex>
+  <Box shadow="small" fullWidth margin="medium"> {/* Added margin here */}
+    {/* Header Section with Theme Toggle */}
+    <Flex 
+      direction="row" 
+      justify="between" 
+      align="center" 
+      padding="medium" 
+      fullWidth
+    >
+      <Text variant="h1" size="2xl" weight="bold" margin="none">
+        Welcome to Our App!
+      </Text>
+      <Flex gap="small" align="center">
+        <ThemeToggle />
+        <Button variant="danger" onClick={logout}>
+          Logout
+        </Button>
+      </Flex>
+    </Flex>
         
         {user ? (
           <Box 
@@ -69,9 +69,10 @@ const Home: React.FC = () => {
         
         <Box 
           padding="large" 
-          backgroundColor="paper" 
-          borderRadius="medium" 
-          shadow="medium"
+            backgroundColor="paper" 
+            borderRadius="medium" 
+            shadow="medium"
+            margin="medium"
         >
           <Text variant="h2" size="lg" weight="bold" margin="small">
             About This Application
