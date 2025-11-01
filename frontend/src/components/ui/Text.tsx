@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '../../context/ThemeContext';
 
 type TextVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'label';
 type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
@@ -32,6 +33,8 @@ export const Text: React.FC<TextProps> = ({
   truncate = false,
   uppercase = false,
 }) => {
+  const { theme } = useTheme();
+
   const getSizeValue = (): string => {
     const sizes: Record<TextSize, string> = {
       xs: '12px',
@@ -46,7 +49,7 @@ export const Text: React.FC<TextProps> = ({
   };
 
   const getColorValue = (): string => {
-    const colors: Record<TextColor, string> = {
+    const lightColors: Record<TextColor, string> = {
       default: '#1a202c',
       muted: '#718096',
       primary: '#007bff',
@@ -54,7 +57,17 @@ export const Text: React.FC<TextProps> = ({
       warning: '#ffc107',
       error: '#dc3545',
     };
-    return colors[color];
+    
+    const darkColors: Record<TextColor, string> = {
+      default: '#e2e8f0',
+      muted: '#a0aec0',
+      primary: '#63b3ed',
+      success: '#68d391',
+      warning: '#faf089',
+      error: '#fc8181',
+    };
+    
+    return theme === 'light' ? lightColors[color] : darkColors[color];
   };
 
   const getWeightValue = (): string => {
@@ -99,6 +112,7 @@ export const Text: React.FC<TextProps> = ({
     whiteSpace: truncate ? 'nowrap' : 'normal',
     textTransform: uppercase ? 'uppercase' : 'none',
     lineHeight: '1.5',
+    transition: 'color 0.3s ease',
   };
 
   const Component = variant;

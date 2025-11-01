@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Container, Box, Button, Text, Flex, ListItem } from './ui';
-import { BulletedList } from './ui/List';
+import { Container, Box, Button, Text, Flex, BulletedList, ListItem } from './ui';
+import { ThemeToggle } from './ui/ThemeToggle';
 
 const Home: React.FC = () => {
   const { user, logout, isLoading } = useAuth();
@@ -17,6 +17,7 @@ const Home: React.FC = () => {
   return (
     <Container maxWidth="lg" center padding="medium">
       <Box shadow="none" fullWidth>
+        {/* Header Section with Theme Toggle */}
         <Flex 
           direction="row" 
           justify="between" 
@@ -27,15 +28,18 @@ const Home: React.FC = () => {
           <Text variant="h1" size="2xl" weight="bold" margin="none">
             Welcome to Our App!
           </Text>
-          <Button variant="danger" onClick={logout}>
-            Logout
-          </Button>
+          <Flex gap="small" align="center">
+            <ThemeToggle />
+            <Button variant="danger" onClick={logout}>
+              Logout
+            </Button>
+          </Flex>
         </Flex>
         
         {user ? (
           <Box 
             padding="large" 
-            backgroundColor="white" 
+            backgroundColor="paper" 
             borderRadius="medium" 
             shadow="medium"
             margin="medium"
@@ -55,7 +59,7 @@ const Home: React.FC = () => {
         ) : (
           <Box 
             padding="large" 
-            backgroundColor="gray" 
+            backgroundColor="paper" 
             borderRadius="medium" 
             margin="medium"
           >
@@ -65,7 +69,7 @@ const Home: React.FC = () => {
         
         <Box 
           padding="large" 
-          backgroundColor="white" 
+          backgroundColor="paper" 
           borderRadius="medium" 
           shadow="medium"
         >
@@ -83,6 +87,7 @@ const Home: React.FC = () => {
             <ListItem>JWT Authentication</ListItem>
             <ListItem>Password Hashing with bcrypt</ListItem>
             <ListItem>Reusable Component Library</ListItem>
+            <ListItem>Dark/Light Theme Support</ListItem>
           </BulletedList>
         </Box>
       </Box>

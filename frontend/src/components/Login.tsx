@@ -31,7 +31,6 @@ const Login: React.FC = () => {
       <Box 
         shadow="medium" 
         padding="xlarge" 
-        backgroundColor="white"
         borderRadius="medium"
       >
         <Text 

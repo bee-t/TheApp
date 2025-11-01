@@ -1,7 +1,8 @@
 import React from 'react';
+import { useTheme } from '../../context/ThemeContext';
 
 type Spacing = 'none' | 'small' | 'medium' | 'large' | 'xlarge';
-type BackgroundColor = 'transparent' | 'white' | 'gray' | 'primary' | 'secondary';
+type BackgroundColor = 'transparent' | 'default' | 'paper' | 'primary' | 'secondary';
 type BorderRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 type Shadow = 'none' | 'small' | 'medium' | 'large';
 
@@ -21,13 +22,15 @@ export const Box: React.FC<BoxProps> = ({
   children,
   padding = 'medium',
   margin = 'none',
-  backgroundColor = 'transparent',
+  backgroundColor = 'default',
   borderRadius = 'none',
   shadow = 'none',
   fullWidth = false,
   fullHeight = false,
   onClick,
 }) => {
+  const { theme } = useTheme();
+
   const getPaddingValue = (): string => {
     const paddings: Record<Spacing, string> = {
       none: '0',
@@ -51,14 +54,23 @@ export const Box: React.FC<BoxProps> = ({
   };
 
   const getBackgroundColorValue = (): string => {
-    const backgrounds: Record<BackgroundColor, string> = {
+    const lightColors: Record<BackgroundColor, string> = {
       transparent: 'transparent',
-      white: '#ffffff',
-      gray: '#f8f9fa',
+      default: '#ffffff',
+      paper: '#f8f9fa',
       primary: '#e3f2fd',
       secondary: '#f5f5f5',
     };
-    return backgrounds[backgroundColor];
+    
+    const darkColors: Record<BackgroundColor, string> = {
+      transparent: 'transparent',
+      default: '#1a1a1a',
+      paper: '#2d2d2d',
+      primary: '#0d1b2a',
+      secondary: '#333333',
+    };
+    
+    return theme === 'light' ? lightColors[backgroundColor] : darkColors[backgroundColor];
   };
 
   const getBorderRadiusValue = (): string => {
@@ -73,13 +85,21 @@ export const Box: React.FC<BoxProps> = ({
   };
 
   const getShadowValue = (): string => {
-    const shadows: Record<Shadow, string> = {
+    const lightShadows: Record<Shadow, string> = {
       none: 'none',
       small: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
       medium: '0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12)',
       large: '0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10)',
     };
-    return shadows[shadow];
+    
+    const darkShadows: Record<Shadow, string> = {
+      none: 'none',
+      small: '0 1px 3px rgba(0,0,0,0.5), 0 1px 2px rgba(0,0,0,0.4)',
+      medium: '0 3px 6px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.5)',
+      large: '0 10px 20px rgba(0,0,0,0.7), 0 3px 6px rgba(0,0,0,0.6)',
+    };
+    
+    return theme === 'light' ? lightShadows[shadow] : darkShadows[shadow];
   };
 
   const boxStyle: React.CSSProperties = {
@@ -92,6 +112,7 @@ export const Box: React.FC<BoxProps> = ({
     height: fullHeight ? '100%' : 'auto',
     cursor: onClick ? 'pointer' : 'default',
     boxSizing: 'border-box',
+    transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
   };
 
   return (
