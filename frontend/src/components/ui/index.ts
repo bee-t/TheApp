@@ -6,4 +6,5 @@ export { Flex } from './Flex';
 export { Container } from './Container';
 export { List, ListItem, BulletedList, NumberedList, UnstyledList } from './List';
 export { Link } from './Link';
-export { ThemeToggle } from './ThemeToggle'; // Add this line
+export { ThemeToggle } from './ThemeToggle';
+export { Chart } from './Chart';

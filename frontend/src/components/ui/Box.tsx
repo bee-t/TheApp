@@ -5,6 +5,7 @@ type Spacing = 'none' | 'small' | 'medium' | 'large' | 'xlarge';
 type BackgroundColor = 'transparent' | 'default' | 'paper' | 'primary' | 'secondary';
 type BorderRadius = 'none' | 'small' | 'medium' | 'large' | 'full';
 type Shadow = 'none' | 'small' | 'medium' | 'large';
+type Dimension = 'auto' | 'full' | 'half' | 'quarter' | string;
 
 interface BoxProps {
   children: React.ReactNode;
@@ -15,6 +16,8 @@ interface BoxProps {
   shadow?: Shadow;
   fullWidth?: boolean;
   fullHeight?: boolean;
+  width?: Dimension;
+  height?: Dimension;
   onClick?: () => void;
 }
 
@@ -27,6 +30,8 @@ export const Box: React.FC<BoxProps> = ({
   shadow = 'none',
   fullWidth = false,
   fullHeight = false,
+  width = 'auto',
+  height = 'auto',
   onClick,
 }) => {
   const { theme } = useTheme();
@@ -102,14 +107,36 @@ export const Box: React.FC<BoxProps> = ({
     return theme === 'light' ? lightShadows[shadow] : darkShadows[shadow];
   };
 
+  const getWidthValue = (): string => {
+    if (fullWidth) return '100%';
+    const widths: Record<string, string> = {
+      auto: 'auto',
+      full: '100%',
+      half: '50%',
+      quarter: '25%',
+    };
+    return widths[width] || width;
+  };
+
+  const getHeightValue = (): string => {
+    if (fullHeight) return '100%';
+    const heights: Record<string, string> = {
+      auto: 'auto',
+      full: '100%',
+      half: '50%',
+      quarter: '25%',
+    };
+    return heights[height] || height;
+  };
+
   const boxStyle: React.CSSProperties = {
     padding: getPaddingValue(),
     margin: getMarginValue(),
     backgroundColor: getBackgroundColorValue(),
     borderRadius: getBorderRadiusValue(),
     boxShadow: getShadowValue(),
-    width: fullWidth ? '100%' : 'auto',
-    height: fullHeight ? '100%' : 'auto',
+    width: getWidthValue(),
+    height: getHeightValue(),
     cursor: onClick ? 'pointer' : 'default',
     boxSizing: 'border-box',
     transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
